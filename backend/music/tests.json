@@ -1,0 +1,29 @@
+{
+  "tests": [
+    {
+      "name": "Get all music",
+      "method": "GET",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "music": "array"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Upload music",
+      "method": "POST",
+      "body": {
+        "action": "upload",
+        "userId": 1,
+        "title": "Test Track",
+        "artist": "Test Artist",
+        "url": "https://example.com/test.mp3"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

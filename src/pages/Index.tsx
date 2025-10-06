@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 
-type Page = 'home' | 'profile' | 'levels' | 'register' | 'login' | 'download';
+type Page = 'home' | 'profile' | 'levels' | 'register' | 'login' | 'download' | 'music';
 
 function Index() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -26,6 +26,8 @@ function Index() {
         return <LoginPage setPage={setCurrentPage} setUser={setUser} />;
       case 'download':
         return <DownloadPage />;
+      case 'music':
+        return <MusicPage user={user} />;
       default:
         return <HomePage setPage={setCurrentPage} />;
     }
@@ -47,6 +49,7 @@ function Index() {
             
             <div className="hidden md:flex items-center gap-6">
               <NavButton icon="Home" label="Главная" active={currentPage === 'home'} onClick={() => setCurrentPage('home')} />
+              <NavButton icon="Music" label="Музыка" active={currentPage === 'music'} onClick={() => setCurrentPage('music')} />
               <NavButton icon="Download" label="Скачать" active={currentPage === 'download'} onClick={() => setCurrentPage('download')} />
               {user ? (
                 <NavButton icon="User" label="Профиль" active={currentPage === 'profile'} onClick={() => setCurrentPage('profile')} />
@@ -426,6 +429,130 @@ function DownloadCard({ platform, icon, version, size }: { platform: string; ico
         Скачать
       </Button>
     </Card>
+  );
+}
+
+function MusicPage({ user }: { user: { username: string; id: number } | null }) {
+  const [musicList, setMusicList] = useState<any[]>([]);
+  const [title, setTitle] = useState('');
+  const [artist, setArtist] = useState('');
+  const [url, setUrl] = useState('');
+
+  const handleUpload = async () => {
+    if (!user) return;
+    if (!title || !artist || !url) return;
+
+    const response = await fetch('https://functions.poehali.dev/f1070233-9e7f-41d4-adb9-34acf46a8a45', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'upload',
+        userId: user.id,
+        title,
+        artist,
+        url
+      })
+    });
+
+    if (response.ok) {
+      setTitle('');
+      setArtist('');
+      setUrl('');
+      loadMusic();
+    }
+  };
+
+  const loadMusic = async () => {
+    const response = await fetch('https://functions.poehali.dev/f1070233-9e7f-41d4-adb9-34acf46a8a45');
+    const data = await response.json();
+    if (data.music) {
+      setMusicList(data.music);
+    }
+  };
+
+  useEffect(() => {
+    loadMusic();
+  }, []);
+
+  return (
+    <div className="space-y-8">
+      <div className="text-center">
+        <h1 className="text-4xl font-black gradient-text mb-4">Музыка</h1>
+        <p className="text-muted-foreground">Загружайте и слушайте музыку сообщества</p>
+      </div>
+
+      {user && (
+        <Card className="neon-border bg-card/50 backdrop-blur-sm p-6 max-w-2xl mx-auto">
+          <h2 className="text-2xl font-bold text-primary mb-4">Загрузить музыку</h2>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="title" className="text-foreground">Название трека</Label>
+              <Input 
+                id="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="neon-border bg-input mt-2"
+                placeholder="Awesome Track"
+              />
+            </div>
+            <div>
+              <Label htmlFor="artist" className="text-foreground">Исполнитель</Label>
+              <Input 
+                id="artist"
+                value={artist}
+                onChange={(e) => setArtist(e.target.value)}
+                className="neon-border bg-input mt-2"
+                placeholder="DJ Cool"
+              />
+            </div>
+            <div>
+              <Label htmlFor="url" className="text-foreground">Ссылка на музыку</Label>
+              <Input 
+                id="url"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                className="neon-border bg-input mt-2"
+                placeholder="https://example.com/music.mp3"
+              />
+            </div>
+            <Button 
+              className="w-full neon-border bg-primary/20 hover:bg-primary/30 text-primary font-bold"
+              onClick={handleUpload}
+            >
+              <Icon name="Upload" size={18} className="mr-2" />
+              Загрузить
+            </Button>
+          </div>
+        </Card>
+      )}
+
+      <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+        {musicList.map((track, index) => (
+          <Card key={index} className="neon-border bg-card/50 backdrop-blur-sm p-4 hover-scale">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center neon-glow">
+                <Icon name="Music" size={24} className="text-background" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-foreground">{track.title}</h3>
+                <p className="text-sm text-muted-foreground">{track.artist}</p>
+                <p className="text-xs text-muted-foreground mt-1">by {track.uploader}</p>
+              </div>
+              <Button size="sm" className="neon-border bg-secondary/20 hover:bg-secondary/30 text-secondary">
+                <Icon name="Play" size={16} />
+              </Button>
+            </div>
+          </Card>
+        ))}
+      </div>
+
+      {!user && (
+        <div className="text-center py-10">
+          <Icon name="Lock" size={48} className="mx-auto mb-4 text-muted-foreground" />
+          <p className="text-muted-foreground">Войдите, чтобы загружать музыку</p>
+        </div>
+      )}
+    </div>
   );
 }
 
