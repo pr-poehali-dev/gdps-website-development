@@ -126,19 +126,10 @@ function HomePage({ setPage }: { setPage: (page: Page) => void }) {
           <Button 
             size="lg"
             className="neon-border bg-primary/20 hover:bg-primary/30 text-primary font-bold text-lg px-8 hover-scale"
-            onClick={() => setPage('register')}
+            onClick={() => setPage('download')}
           >
             <Icon name="Sparkles" size={20} className="mr-2" />
             Начать играть
-          </Button>
-          <Button 
-            size="lg"
-            variant="outline"
-            className="border-secondary text-secondary hover:bg-secondary/10 font-bold text-lg px-8 hover-scale"
-            onClick={() => setPage('download')}
-          >
-            <Icon name="Download" size={20} className="mr-2" />
-            Скачать
           </Button>
         </div>
       </section>
@@ -321,11 +312,27 @@ function RegisterPage({ setPage, setUser }: { setPage: (page: Page) => void; set
 function LoginPage({ setPage, setUser }: { setPage: (page: Page) => void; setUser: (user: any) => void }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (username && password) {
-      setUser({ username, id: Math.floor(Math.random() * 10000) });
-      setPage('profile');
+      try {
+        const response = await fetch('https://functions.poehali.dev/5c574d19-bd2c-4fe3-a5f9-09cf0a69c4b9', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'login', username, password })
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+          setUser(data.user);
+          setPage('profile');
+        } else {
+          setError(data.error || 'Ошибка входа');
+        }
+      } catch (err) {
+        setError('Ошибка подключения');
+      }
     }
   };
 
@@ -355,6 +362,9 @@ function LoginPage({ setPage, setUser }: { setPage: (page: Page) => void; setUse
               placeholder="••••••••"
             />
           </div>
+          {error && (
+            <p className="text-red-500 text-sm text-center">{error}</p>
+          )}
           <Button 
             className="w-full neon-border bg-primary/20 hover:bg-primary/30 text-primary font-bold"
             onClick={handleLogin}

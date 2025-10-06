@@ -97,7 +97,7 @@ def handler(event: dict, context) -> dict:
                 return {
                     'statusCode': 401,
                     'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
-                    'body': json.dumps({'error': 'Invalid credentials'}),
+                    'body': json.dumps({'error': 'Аккаунт не зарегистрирован'}),
                     'isBase64Encoded': False
                 }
             
