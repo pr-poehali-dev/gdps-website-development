@@ -253,12 +253,6 @@ function ProfilePage({ user }: { user: { username: string; id: number } | null }
           </div>
         </div>
       </Card>
-
-      <div className="grid md:grid-cols-3 gap-6">
-        <StatCard icon="Trophy" value="42" label="Завершено" color="accent" />
-        <StatCard icon="Star" value="1,248" label="Звёзд" color="primary" />
-        <StatCard icon="Award" value="15" label="Достижений" color="secondary" />
-      </div>
     </div>
   );
 }
