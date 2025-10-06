@@ -117,7 +117,7 @@ function HomePage({ setPage }: { setPage: (page: Page) => void }) {
           GDPS FIN0
         </h1>
         <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-          Приватный сервер Geometry Dash с тысячами пользовательских уровней
+          Приватный сервер Geometry Dash с тысячами пользовательских уровней. Поддержка модификации Geode на ПК!
         </p>
         <div className="flex gap-4 justify-center flex-wrap">
           <Button 
@@ -140,11 +140,7 @@ function HomePage({ setPage }: { setPage: (page: Page) => void }) {
         </div>
       </section>
 
-      <section className="grid md:grid-cols-3 gap-6">
-        <StatCard icon="Users" value="12,453" label="Игроков" color="primary" />
-        <StatCard icon="Layers" value="8,721" label="Уровней" color="secondary" />
-        <StatCard icon="Zap" value="99.9%" label="Аптайм" color="accent" />
-      </section>
+
 
 
     </div>
@@ -382,7 +378,7 @@ function DownloadPage() {
         <p className="text-muted-foreground">Выберите версию для вашей платформы</p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
         <DownloadCard 
           platform="Windows"
           icon="Monitor"
@@ -395,12 +391,6 @@ function DownloadPage() {
           version="v2.2.13"
           size="38 MB"
         />
-        <DownloadCard 
-          platform="macOS"
-          icon="Laptop"
-          version="v2.2.13"
-          size="52 MB"
-        />
       </div>
 
       <Card className="neon-border bg-card/50 backdrop-blur-sm p-6">
@@ -408,7 +398,7 @@ function DownloadPage() {
         <ul className="space-y-2 text-muted-foreground">
           <li className="flex items-center gap-2">
             <Icon name="Check" size={16} className="text-accent" />
-            <span>Windows 7+ / macOS 10.12+ / Android 5.0+</span>
+            <span>Windows 7+ / Android 5.0+</span>
           </li>
           <li className="flex items-center gap-2">
             <Icon name="Check" size={16} className="text-accent" />
