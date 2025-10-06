@@ -495,14 +495,10 @@ function DownloadPage() {
         <DownloadCard 
           platform="Windows"
           icon="Monitor"
-          version="v2.2.13"
-          size="45 MB"
         />
         <DownloadCard 
           platform="Android"
           icon="Smartphone"
-          version="v2.2.13"
-          size="38 MB"
         />
       </div>
 
@@ -527,13 +523,11 @@ function DownloadPage() {
   );
 }
 
-function DownloadCard({ platform, icon, version, size }: { platform: string; icon: string; version: string; size: string }) {
+function DownloadCard({ platform, icon }: { platform: string; icon: string }) {
   return (
     <Card className="neon-border bg-card/50 backdrop-blur-sm p-6 hover-scale text-center">
       <Icon name={icon} size={48} className="mx-auto mb-4 text-primary neon-glow" />
-      <h3 className="text-xl font-bold mb-2">{platform}</h3>
-      <p className="text-sm text-muted-foreground mb-1">{version}</p>
-      <p className="text-xs text-muted-foreground mb-4">{size}</p>
+      <h3 className="text-xl font-bold mb-4">{platform}</h3>
       <Button className="w-full neon-border bg-primary/20 hover:bg-primary/30 text-primary font-bold">
         <Icon name="Download" size={16} className="mr-2" />
         Скачать
