@@ -47,7 +47,6 @@ function Index() {
             
             <div className="hidden md:flex items-center gap-6">
               <NavButton icon="Home" label="Главная" active={currentPage === 'home'} onClick={() => setCurrentPage('home')} />
-              <NavButton icon="Gamepad2" label="Уровни" active={currentPage === 'levels'} onClick={() => setCurrentPage('levels')} />
               <NavButton icon="Download" label="Скачать" active={currentPage === 'download'} onClick={() => setCurrentPage('download')} />
               {user ? (
                 <NavButton icon="User" label="Профиль" active={currentPage === 'profile'} onClick={() => setCurrentPage('profile')} />
@@ -148,7 +147,6 @@ function HomePage({ setPage }: { setPage: (page: Page) => void }) {
       </section>
 
       <section>
-        <h2 className="text-3xl font-black text-primary mb-6">Популярные уровни</h2>
         <div className="grid md:grid-cols-3 gap-6">
           <LevelCard 
             title="Neon Paradise"
