@@ -53,6 +53,12 @@ function Index() {
               <NavButton icon="Home" label="Главная" active={currentPage === 'home'} onClick={() => setCurrentPage('home')} />
               <NavButton icon="Music" label="Музыка" active={currentPage === 'music'} onClick={() => setCurrentPage('music')} />
               <NavButton icon="Download" label="Скачать" active={currentPage === 'download'} onClick={() => setCurrentPage('download')} />
+              <a href="https://t.me/+WpNBih78jjAxMTBi" target="_blank" rel="noopener noreferrer">
+                <button className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors text-foreground hover:text-primary hover:bg-primary/5">
+                  <Icon name="Send" size={18} />
+                  <span className="text-sm">Telegram</span>
+                </button>
+              </a>
               {user ? (
                 <>
                   <NavButton icon="User" label="Профиль" active={currentPage === 'profile'} onClick={() => setCurrentPage('profile')} />
