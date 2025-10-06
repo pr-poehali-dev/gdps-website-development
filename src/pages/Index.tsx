@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 
-type Page = 'home' | 'profile' | 'levels' | 'register' | 'login' | 'download' | 'music';
+type Page = 'home' | 'profile' | 'levels' | 'register' | 'login' | 'download' | 'music' | 'reset-password';
 
 function Index() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -28,6 +28,8 @@ function Index() {
         return <DownloadPage />;
       case 'music':
         return <MusicPage user={user} />;
+      case 'reset-password':
+        return <ResetPasswordPage setPage={setCurrentPage} />;
       default:
         return <HomePage setPage={setCurrentPage} />;
     }
@@ -52,7 +54,20 @@ function Index() {
               <NavButton icon="Music" label="Музыка" active={currentPage === 'music'} onClick={() => setCurrentPage('music')} />
               <NavButton icon="Download" label="Скачать" active={currentPage === 'download'} onClick={() => setCurrentPage('download')} />
               {user ? (
-                <NavButton icon="User" label="Профиль" active={currentPage === 'profile'} onClick={() => setCurrentPage('profile')} />
+                <>
+                  <NavButton icon="User" label="Профиль" active={currentPage === 'profile'} onClick={() => setCurrentPage('profile')} />
+                  <Button 
+                    variant="outline"
+                    className="border-red-500 text-red-500 hover:bg-red-500/10 font-bold"
+                    onClick={() => {
+                      setUser(null);
+                      setCurrentPage('home');
+                    }}
+                  >
+                    <Icon name="LogOut" size={16} className="mr-2" />
+                    Выйти
+                  </Button>
+                </>
               ) : (
                 <>
                   <NavButton icon="LogIn" label="Вход" active={currentPage === 'login'} onClick={() => setCurrentPage('login')} />
@@ -86,9 +101,9 @@ function Index() {
         <div className="container mx-auto px-4 text-center">
           <p className="text-muted-foreground">© 2025 GDPS fin0. Приватный сервер Geometry Dash</p>
           <div className="flex justify-center gap-6 mt-4">
-            <Icon name="Github" size={20} className="text-primary cursor-pointer hover:scale-110 transition-transform" />
-            <Icon name="MessageCircle" size={20} className="text-secondary cursor-pointer hover:scale-110 transition-transform" />
-            <Icon name="Youtube" size={20} className="text-accent cursor-pointer hover:scale-110 transition-transform" />
+            <a href="https://t.me/+WpNBih78jjAxMTBi" target="_blank" rel="noopener noreferrer">
+              <Icon name="Send" size={20} className="text-primary cursor-pointer hover:scale-110 transition-transform" />
+            </a>
           </div>
         </div>
       </footer>
@@ -375,6 +390,85 @@ function LoginPage({ setPage, setUser }: { setPage: (page: Page) => void; setUse
             Нет аккаунта?{' '}
             <span className="text-primary cursor-pointer hover:underline" onClick={() => setPage('register')}>
               Зарегистрироваться
+            </span>
+          </p>
+          <p className="text-center text-sm text-muted-foreground">
+            Забыли пароль?{' '}
+            <span className="text-secondary cursor-pointer hover:underline" onClick={() => setPage('reset-password')}>
+              Восстановить
+            </span>
+          </p>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+function ResetPasswordPage({ setPage }: { setPage: (page: Page) => void }) {
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+
+  const handleReset = async () => {
+    if (!email) {
+      setError('Введите email');
+      return;
+    }
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/5fa9bf0e-dc05-4976-94bf-47d57b23f9a8', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        setMessage('Письмо с инструкциями отправлено на вашу почту!');
+        setError('');
+      } else {
+        setError(data.error || 'Ошибка отправки письма');
+      }
+    } catch (err) {
+      setError('Ошибка подключения');
+    }
+  };
+
+  return (
+    <div className="max-w-md mx-auto py-20">
+      <Card className="neon-border bg-card/50 backdrop-blur-sm p-8">
+        <h1 className="text-3xl font-black gradient-text mb-6 text-center">Восстановление пароля</h1>
+        <p className="text-muted-foreground text-center mb-6">
+          Введите email, указанный при регистрации
+        </p>
+        <div className="space-y-4">
+          <div>
+            <Label htmlFor="reset-email" className="text-foreground">Email</Label>
+            <Input 
+              id="reset-email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="neon-border bg-input mt-2"
+              placeholder="example@mail.com"
+            />
+          </div>
+          {error && (
+            <p className="text-red-500 text-sm text-center">{error}</p>
+          )}
+          {message && (
+            <p className="text-green-500 text-sm text-center">{message}</p>
+          )}
+          <Button 
+            className="w-full neon-border bg-secondary/20 hover:bg-secondary/30 text-secondary font-bold"
+            onClick={handleReset}
+          >
+            Отправить письмо
+          </Button>
+          <p className="text-center text-sm text-muted-foreground">
+            Вспомнили пароль?{' '}
+            <span className="text-primary cursor-pointer hover:underline" onClick={() => setPage('login')}>
+              Войти
             </span>
           </p>
         </div>
