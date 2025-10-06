@@ -1,0 +1,26 @@
+{
+  "tests": [
+    {
+      "name": "Get all levels",
+      "method": "GET",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "levels": "array"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Search levels",
+      "method": "GET",
+      "queryStringParameters": {
+        "search": "Neon",
+        "limit": "10"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "levels": "array"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
