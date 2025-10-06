@@ -146,28 +146,7 @@ function HomePage({ setPage }: { setPage: (page: Page) => void }) {
         <StatCard icon="Zap" value="99.9%" label="Аптайм" color="accent" />
       </section>
 
-      <section>
-        <div className="grid md:grid-cols-3 gap-6">
-          <LevelCard 
-            title="Neon Paradise"
-            author="CyberPlayer"
-            difficulty={8}
-            downloads={2456}
-          />
-          <LevelCard 
-            title="Digital Dreams"
-            author="GeoDash_Pro"
-            difficulty={6}
-            downloads={1892}
-          />
-          <LevelCard 
-            title="Cyber Rush"
-            author="NeonMaster"
-            difficulty={9}
-            downloads={3241}
-          />
-        </div>
-      </section>
+
     </div>
   );
 }
