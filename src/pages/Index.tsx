@@ -557,6 +557,20 @@ function DownloadPage() {
           </ul>
         </Card>
       </div>
+
+      <Card className="neon-border bg-card/50 backdrop-blur-sm p-6 border-yellow-500/30">
+        <div className="flex items-start gap-3">
+          <Icon name="AlertTriangle" size={24} className="text-yellow-500 flex-shrink-0 mt-0.5" />
+          <div className="text-sm text-muted-foreground">
+            <p className="mb-2">
+              <strong className="text-foreground">Внимание:</strong> Мы не несем ответственность за ваше оборудование.
+            </p>
+            <p>
+              Ваш Microsoft Defender (антивирусная программа, встроенная в систему Windows) может жаловаться на файл. Если не хотите — можете не скачивать ;)
+            </p>
+          </div>
+        </div>
+      </Card>
     </div>
   );
 }
