@@ -11,6 +11,7 @@ type Page = 'home' | 'profile' | 'levels' | 'register' | 'login' | 'download' | 
 function Index() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [user, setUser] = useState<{ username: string; id: number } | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const renderPage = () => {
     switch (currentPage) {
@@ -91,12 +92,83 @@ function Index() {
               variant="ghost"
               size="icon"
               className="md:hidden text-primary"
-              onClick={() => {}}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              <Icon name="Menu" size={24} />
+              <Icon name={isMobileMenuOpen ? "X" : "Menu"} size={24} />
             </Button>
           </div>
         </div>
+
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t border-primary/30 bg-background/95 backdrop-blur-sm">
+            <div className="container mx-auto px-4 py-4 flex flex-col gap-2">
+              <button 
+                className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-foreground hover:bg-primary/10 w-full text-left"
+                onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }}
+              >
+                <Icon name="Home" size={20} />
+                <span>Главная</span>
+              </button>
+              <button 
+                className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-foreground hover:bg-primary/10 w-full text-left"
+                onClick={() => { setCurrentPage('music'); setIsMobileMenuOpen(false); }}
+              >
+                <Icon name="Music" size={20} />
+                <span>Музыка</span>
+              </button>
+              <button 
+                className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-foreground hover:bg-primary/10 w-full text-left"
+                onClick={() => { setCurrentPage('download'); setIsMobileMenuOpen(false); }}
+              >
+                <Icon name="Download" size={20} />
+                <span>Скачать</span>
+              </button>
+              <a href="https://t.me/+WpNBih78jjAxMTBi" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-foreground hover:bg-primary/10 w-full">
+                <Icon name="Send" size={20} />
+                <span>Telegram</span>
+              </a>
+              {user ? (
+                <>
+                  <button 
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-foreground hover:bg-primary/10 w-full text-left"
+                    onClick={() => { setCurrentPage('profile'); setIsMobileMenuOpen(false); }}
+                  >
+                    <Icon name="User" size={20} />
+                    <span>Профиль</span>
+                  </button>
+                  <Button 
+                    variant="outline"
+                    className="border-red-500 text-red-500 hover:bg-red-500/10 font-bold w-full justify-start"
+                    onClick={() => {
+                      setUser(null);
+                      setCurrentPage('home');
+                      setIsMobileMenuOpen(false);
+                    }}
+                  >
+                    <Icon name="LogOut" size={20} className="mr-2" />
+                    Выйти
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <button 
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-foreground hover:bg-primary/10 w-full text-left"
+                    onClick={() => { setCurrentPage('login'); setIsMobileMenuOpen(false); }}
+                  >
+                    <Icon name="LogIn" size={20} />
+                    <span>Вход</span>
+                  </button>
+                  <Button 
+                    className="neon-border bg-primary/20 hover:bg-primary/30 text-primary font-bold w-full"
+                    onClick={() => { setCurrentPage('register'); setIsMobileMenuOpen(false); }}
+                  >
+                    Регистрация
+                  </Button>
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </nav>
 
       <main className="container mx-auto px-4 py-8">
