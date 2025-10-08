@@ -496,23 +496,67 @@ function DownloadPage() {
         />
       </div>
 
-      <Card className="neon-border bg-card/50 backdrop-blur-sm p-6">
-        <h3 className="text-xl font-bold mb-4 text-primary">Системные требования</h3>
-        <ul className="space-y-2 text-muted-foreground">
-          <li className="flex items-center gap-2">
-            <Icon name="Check" size={16} className="text-accent" />
-            <span>Windows 7+ / Android 5.0+</span>
-          </li>
-          <li className="flex items-center gap-2">
-            <Icon name="Check" size={16} className="text-accent" />
-            <span>2 GB RAM минимум</span>
-          </li>
-          <li className="flex items-center gap-2">
-            <Icon name="Check" size={16} className="text-accent" />
-            <span>Интернет для онлайн-функций</span>
-          </li>
-        </ul>
-      </Card>
+      <div className="grid md:grid-cols-2 gap-6">
+        <Card className="neon-border bg-card/50 backdrop-blur-sm p-6">
+          <h3 className="text-xl font-bold mb-4 text-primary">Минимальные требования</h3>
+          <ul className="space-y-2 text-sm text-muted-foreground">
+            <li className="flex items-start gap-2">
+              <Icon name="Check" size={16} className="text-accent mt-0.5 flex-shrink-0" />
+              <span><strong className="text-foreground">ОС:</strong> Windows 7 или новее</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Icon name="Check" size={16} className="text-accent mt-0.5 flex-shrink-0" />
+              <span><strong className="text-foreground">Процессор:</strong> 2.0 GHz+</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Icon name="Check" size={16} className="text-accent mt-0.5 flex-shrink-0" />
+              <span><strong className="text-foreground">Оперативная память:</strong> 1 GB</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Icon name="Check" size={16} className="text-accent mt-0.5 flex-shrink-0" />
+              <span><strong className="text-foreground">Видеокарта:</strong> с поддержкой DirectX 9.0c</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Icon name="Check" size={16} className="text-accent mt-0.5 flex-shrink-0" />
+              <span><strong className="text-foreground">Место на диске:</strong> 200 MB</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Icon name="Check" size={16} className="text-accent mt-0.5 flex-shrink-0" />
+              <span><strong className="text-foreground">Звук:</strong> совместимая с DirectX</span>
+            </li>
+          </ul>
+        </Card>
+
+        <Card className="neon-border bg-card/50 backdrop-blur-sm p-6">
+          <h3 className="text-xl font-bold mb-4 text-secondary">Рекомендуемые требования</h3>
+          <ul className="space-y-2 text-sm text-muted-foreground">
+            <li className="flex items-start gap-2">
+              <Icon name="Check" size={16} className="text-accent mt-0.5 flex-shrink-0" />
+              <span><strong className="text-foreground">ОС:</strong> Windows 10</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Icon name="Check" size={16} className="text-accent mt-0.5 flex-shrink-0" />
+              <span><strong className="text-foreground">Процессор:</strong> 2.4 GHz+</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Icon name="Check" size={16} className="text-accent mt-0.5 flex-shrink-0" />
+              <span><strong className="text-foreground">Оперативная память:</strong> 2 GB</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Icon name="Check" size={16} className="text-accent mt-0.5 flex-shrink-0" />
+              <span><strong className="text-foreground">Видеокарта:</strong> с поддержкой DirectX 11</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Icon name="Check" size={16} className="text-accent mt-0.5 flex-shrink-0" />
+              <span><strong className="text-foreground">Место на диске:</strong> 500 MB</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Icon name="Check" size={16} className="text-accent mt-0.5 flex-shrink-0" />
+              <span><strong className="text-foreground">Звук:</strong> совместимая с DirectX</span>
+            </li>
+          </ul>
+        </Card>
+      </div>
     </div>
   );
 }
