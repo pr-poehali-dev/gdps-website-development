@@ -54,6 +54,12 @@ function Index() {
               <NavButton icon="Home" label="Главная" active={currentPage === 'home'} onClick={() => setCurrentPage('home')} />
               <NavButton icon="Music" label="Музыка" active={currentPage === 'music'} onClick={() => setCurrentPage('music')} />
               <NavButton icon="Download" label="Скачать" active={currentPage === 'download'} onClick={() => setCurrentPage('download')} />
+              <a href="https://fin0gdps.ps.fhgdps.com/" target="_blank" rel="noopener noreferrer">
+                <button className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors text-foreground hover:text-primary hover:bg-primary/5">
+                  <Icon name="Globe" size={18} />
+                  <span className="text-sm">GDPS Сайт</span>
+                </button>
+              </a>
               <a href="https://t.me/+WpNBih78jjAxMTBi" target="_blank" rel="noopener noreferrer">
                 <button className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors text-foreground hover:text-primary hover:bg-primary/5">
                   <Icon name="Send" size={18} />
@@ -123,6 +129,10 @@ function Index() {
                 <Icon name="Download" size={20} />
                 <span>Скачать</span>
               </button>
+              <a href="https://fin0gdps.ps.fhgdps.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-foreground hover:bg-primary/10 w-full">
+                <Icon name="Globe" size={20} />
+                <span>GDPS Сайт</span>
+              </a>
               <a href="https://t.me/+WpNBih78jjAxMTBi" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-foreground hover:bg-primary/10 w-full">
                 <Icon name="Send" size={20} />
                 <span>Telegram</span>
