@@ -100,7 +100,7 @@ function Index() {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-primary/30 bg-background/95 backdrop-blur-sm">
+          <div className="md:hidden border-t border-primary/30 bg-background/95 backdrop-blur-sm animate-in slide-in-from-top duration-1000">
             <div className="container mx-auto px-4 py-4 flex flex-col gap-2">
               <button 
                 className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-foreground hover:bg-primary/10 w-full text-left"
