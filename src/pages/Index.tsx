@@ -578,7 +578,7 @@ function DownloadPage() {
 function DownloadCard({ platform, icon }: { platform: string; icon: string }) {
   const downloadUrl = platform === "Android" 
     ? "https://download.fhgdps.com/fin0gdps/GDPS%20FIN0.apk"
-    : "#";
+    : "https://download.fhgdps.com/fin0gdps/GDPS%20FIN0.zip";
 
   return (
     <Card className="neon-border bg-card/50 backdrop-blur-sm p-6 hover-scale text-center">
