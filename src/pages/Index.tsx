@@ -153,7 +153,7 @@ function Index() {
                 <>
                   <button 
                     className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-foreground hover:bg-primary/10 w-full text-left"
-                    onClick={() => { setCurrentPage('login'); setIsMobileMenuOpen(false); }}
+                    onClick={() => { window.open('https://fin0gdps.ps.fhgdps.com/dashboard/login/login.php', '_blank'); setIsMobileMenuOpen(false); }}
                   >
                     <Icon name="LogIn" size={20} />
                     <span>Вход</span>
