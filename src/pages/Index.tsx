@@ -576,11 +576,18 @@ function DownloadPage() {
 }
 
 function DownloadCard({ platform, icon }: { platform: string; icon: string }) {
+  const downloadUrl = platform === "Android" 
+    ? "https://download.fhgdps.com/fin0gdps/GDPS%20FIN0.apk"
+    : "#";
+
   return (
     <Card className="neon-border bg-card/50 backdrop-blur-sm p-6 hover-scale text-center">
       <Icon name={icon} size={48} className="mx-auto mb-4 text-primary neon-glow" />
       <h3 className="text-xl font-bold mb-4">{platform}</h3>
-      <Button className="w-full neon-border bg-primary/20 hover:bg-primary/30 text-primary font-bold">
+      <Button 
+        className="w-full neon-border bg-primary/20 hover:bg-primary/30 text-primary font-bold"
+        onClick={() => window.open(downloadUrl, '_blank')}
+      >
         <Icon name="Download" size={16} className="mr-2" />
         Скачать
       </Button>
