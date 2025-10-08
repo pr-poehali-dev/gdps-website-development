@@ -80,7 +80,7 @@ function Index() {
                   <NavButton icon="LogIn" label="Вход" active={currentPage === 'login'} onClick={() => setCurrentPage('login')} />
                   <Button 
                     className="neon-border bg-primary/20 hover:bg-primary/30 text-primary font-bold"
-                    onClick={() => setCurrentPage('register')}
+                    onClick={() => window.open('https://fin0gdps.ps.fhgdps.com/dashboard/login/register.php', '_blank')}
                   >
                     Регистрация
                   </Button>
